@@ -31,7 +31,7 @@ def plot(t_0, t_1, x_0, h, f, name=""):
     if x_0[0]==x_0[1]:
         opinion = "same opinions"
     else:
-        opinion = "opposing opinions"
+        opinion = "different opinions"
     while t <= t_1:
         res_t.append(t)
         res_x0.append(x[0])

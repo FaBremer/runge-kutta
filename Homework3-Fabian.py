@@ -10,6 +10,12 @@ def heun(f):
     return lambda t, x, h: (lambda k1: h * f( t + h/2, x + k1/2))(h*f(t,x))
 def rk4(f):
     return lambda t, x, h: (lambda k1: (lambda k2: (lambda k3: (lambda k4: (k1 + 2*k2 + 2*k3 + k4)/6)( h * f( t + h  , x + k3 )))( h * f( t + h/2, x + k2/2 )))( h * f( t + h/2, x + k1/2)))( h * f( t, x) )
+def rk4a(f, t, x, h):
+    k1 = f(t,x)
+    k2 = f(t + 0.5*h, x + 0.5*h*k1)
+    k3 = f(t + 0.5*h, x + 0.5*h*k2)
+    k4 = f(t + h, x + h*k3)
+    return (h*(k1 + 2*k2 + 2*k3 + k4)/6)
 
 def rhs(t,x,par=pars):
     d = par[0]
@@ -39,11 +45,11 @@ def plot(t_0, t_1, x_0, h, f, name=""):
     plt.title(f"{name}-method, {opinion}, \n $x_0$ starting at {x_0[0]}, $x_1$ starting at {x_0[0]}, $h={h}$")
     plt.show()
     
-plot(0,7,np.array([-1.,-1.]), 1e-3, euler(rhs), "Euler")
-plot(0,7,np.array([-1.,-1.]), 5e-1, euler(rhs), "Euler")
-plot(0,7,np.array([-1.,-1.]), 5e-1, heun(rhs), "Heun")
-plot(0,7,np.array([-1.,-1.]), 5e-1, rk4(rhs), "Runge-Kutta")
-plot(0,7,np.array([1.,-1.]), 1e-3, euler(rhs), "Euler")
-plot(0,7,np.array([1.,-1.]), 5e-1, euler(rhs), "Euler")
-plot(0,7,np.array([1.,-1.]), 5e-1, heun(rhs), "Heun")
-plot(0,7,np.array([1.,-1.]), 5e-1, rk4(rhs), "Runge-Kutta")
+#plot(0,7,np.array([-1.,-1.]), 1e-3, euler(rhs), "Euler")
+#plot(0,7,np.array([-1.,-1.]), 5e-1, euler(rhs), "Euler")
+#plot(0,7,np.array([-1.,-1.]), 5e-1, heun(rhs), "Heun")
+#plot(0,7,np.array([-1.,-1.]), 5e-1, rk4(rhs), "Runge-Kutta")
+#plot(0,7,np.array([1.,-1.]), 1e-3, euler(rhs), "Euler")
+#plot(0,7,np.array([1.,-1.]), 5e-1, euler(rhs), "Euler")
+#plot(0,7,np.array([1.,-1.]), 5e-1, heun(rhs), "Heun")
+#plot(0,7,np.array([1.,-1.]), 5e-1, rk4(rhs), "Runge-Kutta")
